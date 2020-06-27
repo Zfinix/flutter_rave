@@ -113,6 +113,7 @@ class _RaveProviderState extends State<RaveProvider> {
   _startServer() async {
     localhostServer = RaveInAppLocalhostServer(
       onResponse: this.onRaveFeedback,
+      port: 0
     );
     await localhostServer.start();
   }
