@@ -113,7 +113,6 @@ class _RaveProviderState extends State<RaveProvider> {
   _startServer() async {
     localhostServer = RaveInAppLocalhostServer(
       onResponse: this.onRaveFeedback,
-      port: 0
     );
     await localhostServer.start();
   }
@@ -348,21 +347,11 @@ class _RaveProviderState extends State<RaveProvider> {
       return null;
     } catch (e) {
       if (mounted) {
-        Scaffold.of(context).showSnackBar(
-          SnackBar(
-            content: Text("${e.toString()}"),
-            duration: Duration(
-              seconds: 5,
-            ),
-            backgroundColor: Colors.red,
-          ),
-        );
-
         setState(() {
           isProcessing = false;
         });
       }
-      rethrow;
+      throw e;
     }
   }
 
@@ -501,8 +490,8 @@ class _BillingInfoProviderState extends State<BillingInfoProvider> {
                   validator: (v) {
                     if (v == null || v.trim().isEmpty)
                       return "Address is required";
-
-                      else return null;
+                    else
+                      return null;
                   },
                   onSaved: (v) {
                     setState(() {
@@ -525,11 +514,11 @@ class _BillingInfoProviderState extends State<BillingInfoProvider> {
                             : snapshot.data
                                 .map(
                                   (i) => DropdownMenuItem<Map<String, dynamic>>(
-                                        value: i,
-                                        child: Text(
-                                          i["name"],
-                                        ),
-                                      ),
+                                    value: i,
+                                    child: Text(
+                                      i["name"],
+                                    ),
+                                  ),
                                 )
                                 .toList(),
                         hint: Text("Select Country"),
@@ -575,8 +564,8 @@ class _BillingInfoProviderState extends State<BillingInfoProvider> {
                   validator: (v) {
                     if (v == null || v.trim().isEmpty)
                       return "Name is required";
-
-                      else return null;
+                    else
+                      return null;
                   },
                   onSaved: (v) {
                     setState(() {
@@ -597,7 +586,8 @@ class _BillingInfoProviderState extends State<BillingInfoProvider> {
                   validator: (v) {
                     if (v == null || v.trim().isEmpty)
                       return "Zip Code is required";
-                        else return null;
+                    else
+                      return null;
                   },
                   onSaved: (v) {
                     setState(() {
